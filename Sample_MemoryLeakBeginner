@@ -1,0 +1,20 @@
+package mytest.myexample;
+
+import java.util.HashMap;
+
+public class MemoryLeakBeginner {
+	  public static long addIncremental(long l)
+      {
+             Long sum=0L;
+              sum =sum+l;
+              return sum;
+      }
+      public static void main(String[] args) {
+    	  HashMap<Long,Long> hMap = new java.util.HashMap<Long, Long>();
+             for(long i=0 ;i<1000000000;i++)
+             {
+                   hMap.put(i, addIncremental(i)) ;
+                    
+             }
+      }
+}
