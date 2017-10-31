@@ -1,0 +1,24 @@
+package mytest.myexample;
+// Sample example for the unreachable blocks in java due to wrong programming.
+public class UnReachableBlocksJava {
+	public static void main(String sg[]){
+		String hello = returnSampleString();
+		
+	}
+
+
+public static String returnSampleString(){
+	
+	try{String sample = "hellooo";
+	return sample;
+	sample = sample+sample;  // this is the unreachable code, as the method already returned the value. so this statement
+	//will never get executed.
+	}catch(Exception e){
+		
+	}catch(NullPointerException nulle){
+		// This is Unreachable catch block, this will never get executed as all the exception raised in returnSampleString
+		// will get catched in first catch block. 
+	}
+	
+ }
+}
