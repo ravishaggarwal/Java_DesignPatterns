@@ -1,0 +1,55 @@
+package mytest.myexample;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+public class ComparatorSortExample {
+    public static void main(String st[]){
+    	ArrayList<Employee> arrayList=new ArrayList<Employee>();  
+    	arrayList.add(new Employee(130,"Ranbhir","Associate"));  
+    	arrayList.add(new Employee(120,"Akshay","Senior Associate"));  
+    	arrayList.add(new Employee(107,"sharukh","Manager"));  
+    	  
+    	Collections.sort(arrayList,new EmployeeNameComparator());  
+    	for(Employee employee: arrayList){  
+    		System.out.println("Sorted Array List by Employee Name:	" +employee.employeeid+" "+employee.employeeName+" "+employee.designation);   
+    	}  
+    	  
+    	Collections.sort(arrayList,new EmployeeIdComparator());  
+    	for(Employee employee: arrayList){  
+    	System.out.println("Sorted Array List by Employee Id:	" +employee.employeeid+" "+employee.employeeName+" "+employee.designation);  
+    	}  
+    }
+}
+
+class Employee{  
+	int employeeid;  
+	String employeeName;  
+	String designation;  
+	Employee(int employeeid,String employeeName,String designation){  
+		this.employeeid=employeeid;  
+		this.employeeName=employeeName;  
+		this.designation=designation;  
+		}  
+	}  
+
+
+class EmployeeIdComparator implements Comparator<Employee>{  
+	public int compare(Employee e1,Employee e2){  
+		if(e1.employeeid==e2.employeeid)  
+			return 0;  
+		else if(e1.employeeid>e2.employeeid)  
+			return 1;  
+		else  
+			return -1;  
+		}  
+}  
+
+
+class EmployeeNameComparator implements Comparator<Employee>{  
+	public int compare(Employee e1,Employee e2){  
+		return e1.employeeName.compareTo(e2.employeeName);  
+	}  
+}  
+
