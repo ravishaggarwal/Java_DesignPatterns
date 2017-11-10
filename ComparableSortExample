@@ -1,0 +1,42 @@
+package mytest.myexample;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class ComparableSortExample {
+	public static void main(String args[]){  
+		ArrayList<Employee1> arrayList=new ArrayList<Employee1>();  
+		arrayList.add(new Employee1(130,"Ranbhir","Associate"));  
+    	arrayList.add(new Employee1(120,"Akshay","Senior Associate"));  
+    	arrayList.add(new Employee1(107,"sharukh","Manager"));  
+		  
+		Collections.sort(arrayList);  
+		for(Employee1 employee:arrayList){  
+			System.out.println("Sorted Array List by Employee ID:	" +employee.employeeid+" "+employee.employeeName+" "+employee.designation);   
+		}  
+	}  
+}
+
+class Employee1 implements Comparable<Employee1>{  
+	int employeeid;  
+	String employeeName;  
+	String designation;  
+	Employee1(int employeeid,String employeeName,String designation){  
+		this.employeeid=employeeid;  
+		this.employeeName=employeeName;  
+		this.designation=designation;  
+		}  
+	
+	public int compareTo(Employee1 employee){  
+		if(employeeid==employee.employeeid)  
+			return 0;  
+		else if(employeeid>employee.employeeid)  
+			return 1;  
+		else  
+			return -1;  
+		}  
+	} 
+ 
+
+  
+ 
