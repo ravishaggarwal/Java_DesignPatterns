@@ -1,0 +1,113 @@
+package mytest.myexample;
+
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+public class SingletonReadResolveExample {
+
+    public static void main(String[] args) {
+    	try{
+	          MySingleton mySingleton = MySingleton.getInstance();
+	          System.out.println("Getting first time singleton object : " + mySingleton);
+	
+	          mySingleton.setParam(5);
+	          System.out.println("Just do the changes of data member of Singleton");
+	          System.out.println("Afte the change, the value get changed however object will remain same " + mySingleton);
+	
+	          serializeMethod();
+	          System.out.println("Here Serializing the object " + mySingleton);
+	
+	          mySingleton.setParam(5);
+	          MySingleton myDeserializedSingletonObject = (MySingleton)deSerializeMethod();
+	          System.out.println("Here deserializing the saved object whose output depend on the readResovle method defind in the singleton Class");
+	
+	          System.out.println("Object after Deserialization : " + myDeserializedSingletonObject);
+    	}catch(Exception e){
+    		System.err.println("Exception occured " + e.getMessage());
+    		e.printStackTrace();
+    	}
+    }
+
+    public static void serializeMethod() throws Exception {
+         ObjectOutputStream oos = null;
+
+          try {
+             oos = new ObjectOutputStream(new FileOutputStream("d:\\SingletonReadResolveExample.txt"));
+             oos.writeObject(MySingleton.getInstance());
+          } catch (FileNotFoundException e) {  
+             e.printStackTrace();  
+             throw e;
+          } catch (IOException e) {  
+             e.printStackTrace();
+             throw e;
+          }finally{
+    	  	  if(oos !=null){
+    		  oos.close();
+        	  }
+        	  
+          }
+       }
+
+       public static Object deSerializeMethod() throws Exception{
+          ObjectInputStream oin = null;
+          Object readObj = null;
+
+          try {
+             oin = new ObjectInputStream(new FileInputStream("d:\\SingletonReadResolveExample.txt"));
+             readObj = oin.readObject();
+          } catch (FileNotFoundException e) {  
+             e.printStackTrace();
+             throw e;
+          } catch (IOException e) {  
+             e.printStackTrace();
+             throw e;
+          } catch (ClassNotFoundException e) {  
+             e.printStackTrace();
+             throw e;
+          }
+          finally{
+    	  	  if(oin !=null){
+    	  		oin.close();
+        	  }
+          	}
+    	 return readObj;
+       }
+}
+
+ class MySingleton implements Serializable {
+  
+	private static final long serialVersionUID = 19353363535L;
+	private int param;
+    private static volatile  MySingleton mySingleton = null;
+
+   private MySingleton() {
+     param=1;
+   }
+
+   public static synchronized MySingleton getInstance() {
+      if(mySingleton == null) {
+         mySingleton = new MySingleton();
+      }
+      return mySingleton;
+   }
+
+   public void setParam(int param){
+	   this.param = param;
+   }
+   
+   public int getParam(){
+	   return param;
+   }
+ public Object readResolve() {
+      System.out.println("Executing readResolve, this method return the streamed object to caller");
+      return MySingleton.getInstance(); 
+   }
+
+ }
+
