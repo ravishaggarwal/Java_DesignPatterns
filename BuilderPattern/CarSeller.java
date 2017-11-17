@@ -7,7 +7,7 @@ public class CarSeller {
         CarMaker carMaker = new CarMaker();
         CarBuilder audiCarBuilder = new AudiCarBuilder();
         carMaker.setCarBuilder(audiCarBuilder);
-        carMaker.constructCamara();
+        carMaker.constructCar();
         Car car = carMaker.getCar();
         System.out.println("the car build is " +car.toString());
     }
