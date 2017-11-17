@@ -12,7 +12,7 @@ public class CarMaker {
         return this.carBuilder.getCar();
     }
      
-    public void constructCamara(){
+    public void constructCar(){
         this.carBuilder.createNewCar();
         this.carBuilder.buildDoors();
         this.carBuilder.buildGearBox();
